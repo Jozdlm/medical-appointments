@@ -3,7 +3,7 @@ package com.citasmed.restapi;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/patient/")
+@RequestMapping("/api/patients/")
 public class PatientController {
     @GetMapping("/")
     public String getPatients() {
