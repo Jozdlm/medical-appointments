@@ -1,4 +1,4 @@
-package com.citasmed.restapi;
+package com.citasmed.restapi.doctor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
