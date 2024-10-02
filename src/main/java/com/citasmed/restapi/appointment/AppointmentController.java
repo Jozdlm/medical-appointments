@@ -1,4 +1,4 @@
-package com.citasmed.restapi;
+package com.citasmed.restapi.appointment;
 
 import org.springframework.web.bind.annotation.*;
 
