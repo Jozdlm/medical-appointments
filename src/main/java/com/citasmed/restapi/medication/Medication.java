@@ -14,13 +14,13 @@ public class Medication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String name;
 
-    @Column(name = "medida_id")
+    @Column(name = "medida_id", nullable = false)
     private Integer measurementId;
 
-    @Column(name = "activo")
+    @Column(name = "activo", nullable = false)
     private Boolean isActive;
 
     public Integer getId() {
