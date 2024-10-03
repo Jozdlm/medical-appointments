@@ -20,6 +20,9 @@ public class Medication {
     @Column(name = "medida_id")
     private Integer measurementId;
 
+    @Column(name = "activo")
+    private Boolean isActive;
+
     public Integer getId() {
         return id;
     }
@@ -42,5 +45,13 @@ public class Medication {
 
     public void setMeasurementId(Integer measurementId) {
         this.measurementId = measurementId;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 }
