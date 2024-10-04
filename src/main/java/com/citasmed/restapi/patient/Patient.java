@@ -1,10 +1,11 @@
-package com.citasmed.restapi.doctor;
+package com.citasmed.restapi.patient;
 
 import jakarta.persistence.*;
+import java.util.Date;
 
 @Entity
-@Table(name = "doctor")
-public class Doctor {
+@Table(name = "paciente")
+public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -12,18 +13,12 @@ public class Doctor {
     private String nombre;
     private String apellido;
 
-    @Column(name = "id_especializacion")
-    private Integer idEspecializacion;
-
     private Long cui;
     private String telefono;
     private String correo;
-
+    private Date fechaNacimiento;
     @Column(name = "contraseña")
     private String password;
-
-    //@Column(name = "clave_doctor", insertable = false, updatable = false)
-    //private String claveDoctor;
 
     public Integer getId() {
         return id;
@@ -47,14 +42,6 @@ public class Doctor {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public Integer getIdEspecializacion() {
-        return idEspecializacion;
-    }
-
-    public void setIdEspecializacion(Integer idEspecializacion) {
-        this.idEspecializacion = idEspecializacion;
     }
 
     public Long getCui() {
@@ -89,7 +76,12 @@ public class Doctor {
         this.password = password;
     }
 
-    //public String getClaveDoctor() {
-    //    return claveDoctor;
-    //}
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
 }
