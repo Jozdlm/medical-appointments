@@ -22,8 +22,8 @@ public class Doctor {
     @Column(name = "contraseña")
     private String password;
 
-    //@Column(name = "clave_doctor", insertable = false, updatable = false)
-    //private String claveDoctor;
+    @Column(name = "clave_doctor", insertable = false, updatable = false)
+    private String claveDoctor;
 
     public Integer getId() {
         return id;
@@ -89,7 +89,7 @@ public class Doctor {
         this.password = password;
     }
 
-    //public String getClaveDoctor() {
-    //    return claveDoctor;
-    //}
+    // public String getClaveDoctor() {
+    // return claveDoctor;
+    // }
 }

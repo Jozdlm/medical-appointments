@@ -51,10 +51,10 @@ public class PatientService {
 
         Patient existingPatient = existingPatientOpt.get();
 
-      //  if (existingPatient.getIsActive()) {
-      //      existingPatient.setIsActive(false);
-      //  }
-//
+        // if (existingPatient.getIsActive()) {
+        // existingPatient.setIsActive(false);
+        // }
+        //
         return patientRepository.save(existingPatient);
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/patient/")
+@RequestMapping("/api/patients/")
 public class PatientController {
     @Autowired
     private PatientService patientService;
@@ -41,8 +41,7 @@ public class PatientController {
 
     @PutMapping("/{id}")
     public Patient updatePatient(@PathVariable Integer id, @RequestBody Patient patient) {
-        return patientService.
-        updatePatient(id, patient);
+        return patientService.updatePatient(id, patient);
     }
 
     @DeleteMapping("/{id}")
