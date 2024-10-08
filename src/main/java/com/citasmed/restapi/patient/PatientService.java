@@ -5,11 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.citasmed.restapi.patient.ResourceNotFoundException;
 
 
-import com.citasmed.restapi.patient.Patient;
-import com.citasmed.restapi.patient.PatientRepository;
 
 @Service
 public class PatientService {
