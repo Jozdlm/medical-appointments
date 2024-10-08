@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 public class PatientController {
     @Autowired
     private PatientService patientService;
+    @Autowired
+    private PatientRepository patientRepository;
 
     @GetMapping
     public List<Patient> getPatient() {
@@ -40,10 +42,28 @@ public class PatientController {
     }
 
     @PutMapping("/{id}")
-    public Patient updatePatient(@PathVariable Integer id, @RequestBody Patient patient) {
-        return patientService.
-        updatePatient(id, patient);
+    public Patient updatePatient(@PathVariable Integer id, @RequestBody Patient updatedPatient) {
+        // Busca el paciente existente por ID
+        Patient existingPatient = patientRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found with id " + id));
+
+        // Actualiza todos los campos o los neceasarios.
+        existingPatient.setNombre(updatedPatient.getNombre());
+        existingPatient.setApellido(updatedPatient.getApellido());
+        existingPatient.setCui(updatedPatient.getCui());
+        existingPatient.setTelefono(updatedPatient.getTelefono());
+        existingPatient.setFechaNacimiento(updatedPatient.getFechaNacimiento());
+        existingPatient.setCorreo(updatedPatient.getCorreo());
+        existingPatient.setPassword(updatedPatient.getPassword());
+        return patientRepository.save(existingPatient);
     }
+
+    // @PutMapping("/{id}")
+    // public Patient updatePatient(@PathVariable Integer id, @RequestBody Patient
+    // patient) {
+    // return patientService.
+    // updatePatient(id, patient);
+    // }
 
     @DeleteMapping("/{id}")
     public Patient deletePatient(@PathVariable Integer id) {
