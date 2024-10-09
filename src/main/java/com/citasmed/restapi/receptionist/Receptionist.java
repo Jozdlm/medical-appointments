@@ -2,7 +2,6 @@ package com.citasmed.restapi.receptionist;
 
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "secretaria")
 public class Receptionist {
@@ -10,10 +9,11 @@ public class Receptionist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name= "nombre")
+    @Column(name = "nombre")
     private String nombre;
     private String apellido;
 
+    @Column(unique = true, nullable = false)
     private Long cui;
     private String telefono;
     private String correo;

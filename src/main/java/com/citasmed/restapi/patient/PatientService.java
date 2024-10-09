@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.citasmed.restapi.receptionist.Receptionist;
+
 
 
 @Service
@@ -48,12 +50,9 @@ public class PatientService {
             throw new RuntimeException("Patient not found with ID: " + id);
         }
 
-        Patient existingPatient = existingPatientOpt.get();
+        Patient existingReceptionist = existingPatientOpt.get();
+        patientRepository.deleteById(id); // Este método elimina el paciente de la base de datos.
 
-        // if (existingPatient.getIsActive()) {
-        // existingPatient.setIsActive(false);
-        // }
-        //
-        return patientRepository.save(existingPatient);
+        return existingReceptionist; // Opcional: Devuelve el paciente eliminado si lo necesitas.
     }
 }
