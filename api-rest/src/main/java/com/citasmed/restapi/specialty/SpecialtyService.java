@@ -6,9 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.citasmed.restapi.specialty.Specialty;
-import com.citasmed.restapi.specialty.SpecialtyRepository;
-
 @Service
 public class SpecialtyService {
 
