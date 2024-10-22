@@ -3,12 +3,14 @@ import express, { Request, Response } from "express";
 import { AppDataSource } from "./data-source";
 import medicationController from "./medication/medication.controller";
 import unitOfMeasureController from "./medication/unit-of-measure.controller";
+import usersController from "./users/users.controller";
 
 const app = express();
 app.use(express.json());
 
 app.use("/api/medications", medicationController);
 app.use("/api/units-measure", unitOfMeasureController);
+app.use("/api/users", usersController);
 
 app.get("/", (req: Request, res: Response) => {
   res.json({
