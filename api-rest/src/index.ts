@@ -1,24 +1,12 @@
 import "reflect-metadata";
-import dotenv from "dotenv";
 import express, { Request, Response } from "express";
-import { DataSource } from "typeorm";
-
-// Load environment variables
-dotenv.config();
+import { AppDataSource } from "./data-source";
+import medicationController from "./medication/medication.controller";
 
 const app = express();
 app.use(express.json());
 
-const AppDataSource = new DataSource({
-  type: "mysql",
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT || "3306"),
-  username: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  entities: [],
-  synchronize: true,
-});
+app.use("/api/medications", medicationController);
 
 app.get("/", (req: Request, res: Response) => {
   res.json({
