@@ -1,8 +1,10 @@
 import { DataSource } from "typeorm";
 import { Medication } from "./medication/medication";
 
-import dotenv from "dotenv";
+import { UnitOfMeasure } from "./medication/unit-of-measure";
+
 // Load environment variables
+import dotenv from "dotenv";
 dotenv.config();
 
 export const AppDataSource = new DataSource({
@@ -12,6 +14,6 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [Medication],
+  entities: [Medication, UnitOfMeasure],
   // synchronize: true,
 });

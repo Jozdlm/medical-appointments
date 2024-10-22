@@ -2,11 +2,13 @@ import "reflect-metadata";
 import express, { Request, Response } from "express";
 import { AppDataSource } from "./data-source";
 import medicationController from "./medication/medication.controller";
+import unitOfMeasureController from "./medication/unit-of-measure.controller";
 
 const app = express();
 app.use(express.json());
 
 app.use("/api/medications", medicationController);
+app.use("/api/units-measure", unitOfMeasureController);
 
 app.get("/", (req: Request, res: Response) => {
   res.json({
