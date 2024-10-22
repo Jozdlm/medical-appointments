@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { AppointmentDetail } from "../appointments/appointment-detail";
 
 @Entity({ name: "medicamentos" })
 export class Medication {
@@ -13,4 +14,7 @@ export class Medication {
 
   @Column({ name: "activo", type: "boolean", nullable: false })
   isActive: boolean;
+
+  @OneToMany(() => AppointmentDetail, (body) => body.medicamento)
+  appointmentDetail: AppointmentDetail[];
 }

@@ -4,6 +4,8 @@ import { AppDataSource } from "./data-source";
 import medicationController from "./medication/medication.controller";
 import unitOfMeasureController from "./medication/unit-of-measure.controller";
 import usersController from "./users/users.controller";
+import appointmentController from "./appointments/appointment.controller";
+import appointmentDetailController from "./appointments/appointment-detail.controller";
 
 const app = express();
 app.use(express.json());
@@ -11,6 +13,8 @@ app.use(express.json());
 app.use("/api/medications", medicationController);
 app.use("/api/units-measure", unitOfMeasureController);
 app.use("/api/users", usersController);
+app.use("/api/appointments/detail", appointmentDetailController);
+app.use("/api/appointments", appointmentController);
 
 app.get("/", (req: Request, res: Response) => {
   res.json({
