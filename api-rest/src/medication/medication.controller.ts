@@ -2,9 +2,12 @@ import express, { Request, Response } from "express";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Medication } from "./medication";
+import { authMiddleware } from "../auth/auth.middleware";
 
 const router = express.Router();
 const medicationRepository = AppDataSource.getRepository(Medication);
+
+router.use(authMiddleware);
 
 // Get all medications
 router.get("/", async (req: Request, res: Response) => {

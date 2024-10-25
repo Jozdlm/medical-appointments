@@ -1,9 +1,12 @@
 import { Request, Response, Router } from "express";
 import { AppDataSource } from "../data-source";
 import { UnitOfMeasure } from "./unit-of-measure";
+import { authMiddleware } from "../auth/auth.middleware";
 
 const router = Router();
 const unitOfMeasureRepository = AppDataSource.getRepository(UnitOfMeasure);
+
+router.use(authMiddleware);
 
 // Get all units of measure
 router.get("/", async (req: Request, res: Response) => {

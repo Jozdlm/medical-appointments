@@ -1,10 +1,12 @@
 import { Router, Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { AppointmentDetail } from "./appointment-detail";
+import { authMiddleware } from "../auth/auth.middleware";
 
 const router = Router();
-
 const citaDetalleRepository = AppDataSource.getRepository(AppointmentDetail);
+
+router.use(authMiddleware);
 
 // Get all cita detalles
 router.get("/", async (req: Request, res: Response) => {

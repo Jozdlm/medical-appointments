@@ -1,7 +1,10 @@
 import { Request, Response, Router } from "express";
 import { User } from "./user"; // Adjust the import path as necessary
+import { authMiddleware } from "../auth/auth.middleware";
 
 const router = Router();
+
+router.use(authMiddleware);
 
 // Get all users
 router.get("/", async (req: Request, res: Response) => {

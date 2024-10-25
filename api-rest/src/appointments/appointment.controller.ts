@@ -1,8 +1,11 @@
 import { Request, Response, Router } from "express";
 import { AppDataSource } from "../data-source"; // Adjust the import path as necessary
 import { Appointment } from "./appointment";
+import { authMiddleware } from "../auth/auth.middleware";
 
 const router = Router();
+
+router.use(authMiddleware);
 
 const citaRepository = AppDataSource.getRepository(Appointment);
 
