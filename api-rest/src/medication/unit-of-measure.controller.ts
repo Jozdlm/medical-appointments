@@ -38,7 +38,18 @@ router.get("/:id", async (req: Request, res: Response) => {
 // Create a new unit of measure
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const unit = unitOfMeasureRepository.create(req.body); // TypeORM's create method
+    // Check if another unit with the same name exists
+    const existingUnitWithSameName = await unitOfMeasureRepository.findOneBy({
+      name: req.body.name,
+    });
+
+    if (existingUnitWithSameName) {
+      return res.status(400).json({
+        message: `Unit of measure with name "${req.body.name}" already exists.`,
+      });
+    }
+
+    const unit = unitOfMeasureRepository.create(req.body);
     const savedUnit = await unitOfMeasureRepository.save(unit);
     res.status(201).json(savedUnit);
   } catch (error) {
@@ -53,27 +64,16 @@ router.put("/:id", async (req: Request, res: Response) => {
   try {
     const unit = await unitOfMeasureRepository.findOneBy({ id });
 
-    if (unit) {
-      // Check if another unit with the same name exists
-      const existingUnitWithSameName = await unitOfMeasureRepository.findOneBy({
-        name: req.body.name,
-      });
-      if (existingUnitWithSameName) {
-        res.status(400).json({
-          message: `Unit of measure with name "${req.body.name}" already exists.`,
-        });
-      }
-
-      // Update the unit properties
-      unit.name = req.body.name;
-
-      const updatedUnit = await unitOfMeasureRepository.save(unit);
-      res.json(updatedUnit);
-    } else {
-      res
+    if (!unit) {
+      return res
         .status(404)
         .json({ message: `Unit of measure not found with ID: ${id}` });
     }
+
+    unit.name = req.body.name;
+    const updatedUnit = await unitOfMeasureRepository.save(unit);
+    
+    return res.json(updatedUnit);
   } catch (error) {
     res.status(500).json({ message: "Error updating unit of measure" });
   }
