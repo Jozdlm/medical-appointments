@@ -71,11 +71,15 @@ const registerValidationRules = [
     .isLength({ min: 2 })
     .withMessage("Apellidos must be at least 2 characters long"),
 
-  check("correo")
+  check("email")
     .notEmpty()
     .withMessage("Correo is required")
     .isEmail()
     .withMessage("Correo must be a valid email address"),
+  check("password")
+    .notEmpty()
+    .withMessage("Passowrd is requiered")
+    .isLength({ min: 3 }),
 ];
 
 router.post(
