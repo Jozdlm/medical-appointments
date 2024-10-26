@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import express, { Request, Response } from "express";
+import cors from "cors";
 import { AppDataSource } from "./data-source";
 import medicationController from "./medication/medication.controller";
 import unitOfMeasureController from "./medication/unit-of-measure.controller";
@@ -12,6 +13,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/auth", authController);
 app.use("/api/medications", medicationController);
