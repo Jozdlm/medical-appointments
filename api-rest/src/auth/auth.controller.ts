@@ -4,10 +4,14 @@ import jwt from "jsonwebtoken";
 import { check, validationResult } from "express-validator";
 import { User, UserRole } from "../users/user"; // Assuming you already have a User model.
 import { AppDataSource } from "../data-source";
+import dotenv from "dotenv";
 
+dotenv.config();
 // Secret key for signing the JWT (use environment variables in production)
-const JWT_SECRET = process.env.JWT_KEY;
 const router = Router();
+const JWT_SECRET =
+  process.env.JWT_KEY ||
+  "519064915bc4d803bb2547bd8ffbb9cf674b9a0fdc863836a05b38acb5120ce7";
 
 router.post(
   "/login",

@@ -1,26 +1,42 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload, Secret } from "jsonwebtoken";
+import dotenv from "dotenv";
 
-const JWT_SECRET = process.env.JWT_KEY;
+dotenv.config();
+
+const JWT_SECRET =
+  process.env.JWT_KEY ||
+  "519064915bc4d803bb2547bd8ffbb9cf674b9a0fdc863836a05b38acb5120ce7";
+
+interface AuthenticatedRequest extends Request {
+  user?: {
+    id: string;
+    role: string;
+  };
+}
 
 export const authMiddleware = (
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.header("Authorization");
+  const authHeader = req.header("Authorization");
+  const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     return res.status(401).json({ message: "No token, authorization denied" });
   }
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as {
-      id: string;
-      role: string;
-    };
+    const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
 
-    req.user = decoded; // Attach the decoded token to the request object
+    if (typeof decoded === "object" && decoded !== null) {
+      req.user = {
+        id: decoded.id as string,
+        role: decoded.role as string,
+      };
+    }
+
     next();
   } catch (err) {
     res.status(401).json({ message: "Invalid token" });
