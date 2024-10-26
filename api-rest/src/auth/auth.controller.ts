@@ -55,6 +55,10 @@ router.post(
 );
 
 const registerValidationRules = [
+  check("cui")
+    .notEmpty()
+    .withMessage("CUI is required")
+    .isLength({ min: 13, max: 13 }),
   check("nombres")
     .notEmpty()
     .withMessage("Nombres is required")
@@ -83,7 +87,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { nombres, apellidos, email, password } = req.body;
+    const { cui, nombres, apellidos, email, password } = req.body;
 
     try {
       const userRepository = AppDataSource.getRepository(User);
@@ -100,6 +104,7 @@ router.post(
 
       // Create user
       user = userRepository.create({
+        cui,
         nombres,
         apellidos,
         correo: email,
