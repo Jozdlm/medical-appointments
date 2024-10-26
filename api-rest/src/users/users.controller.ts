@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
-import { User } from "./user"; // Adjust the import path as necessary
+import bcrypt from "bcryptjs";
+import { User, UserRole } from "./user"; // Adjust the import path as necessary
 import { authMiddleware } from "../auth/auth.middleware";
 
 const router = Router();
@@ -41,19 +42,33 @@ router.post("/", async (req: Request, res: Response) => {
     const existingUser = await User.findOneBy({ cui });
 
     if (existingUser) {
-      res.status(400).json({ message: "User with this CUI already exists." });
-    } else {
-      const newUser = User.create({
-        cui,
-        nombres,
-        apellidos,
-        correo,
-        password,
-        role,
-      });
-      const savedUser = await newUser.save();
-      res.status(201).json(savedUser);
+      return res
+        .status(400)
+        .json({ message: "User with this CUI already exists." });
     }
+
+    const stringToCheck = "RED";
+
+    if (!Object.values(UserRole).includes(role)) {
+      return res
+        .status(400)
+        .json({ message: "The value of role provided is not valid" });
+    }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = User.create({
+      cui,
+      nombres,
+      apellidos,
+      correo,
+      password: hashedPassword,
+      role,
+    });
+    const savedUser = await newUser.save();
+    res.status(201).json(savedUser);
   } catch (error) {
     res.status(500).json({ message: "Error saving user" });
   }
